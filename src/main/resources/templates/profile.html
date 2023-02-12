@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:th = "http://www.thymeleaf.org"
+    xmlns sec = "http://www.themeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>TITLE</title>
+</head>
+<body>
+    <h1>WELCOME</h1>
+    <a th:href="@{'/'}">GO HOME</a>
+    <form th:action="@{'/exit'}" method="post">
+        <button>SIGN OUT</button>
+    </form>
+</body>
+</html>
