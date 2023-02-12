@@ -1,25 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.themeleaf.org/thymeleaf-extras-springsecurity6">
-<head>
-    <meta charset="UTF-8">
-    <title>INDEX</title>
-</head>
-<body>
-<h1>THIS IS SECURITY</h1>
-<div sec:authorize="isAnonymous()">
-    <a th:href="@{'/signin'}">SING IN</a>
+      xmlns:sec="http://www.themeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="main_layout.html">
+<div layout:fragment="content">
+
 </div>
-<div sec:authorize="isAuthenticated()">
-    <a th:href="@{'/profile'}"
-       th:text="${#authentication.principal.fullName + ' - ' + #authentication.principal.email}"></a>
-</div>
-<div sec:authorize="hasAnyRole('ROLE_ADMIN')">
-    <a th:href="@{'/admin-panel'}">ADMIN PANEL</a>
-</div>
-<div sec:authorize="hasAnyRole('ROLE_MODERATOR')">
-    <a th:href="@{'/moderator-panel'}">MODERATOR PANEL</a>
-</div>
-</body>
 </html>

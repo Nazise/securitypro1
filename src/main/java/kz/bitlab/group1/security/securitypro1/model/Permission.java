@@ -12,7 +12,6 @@ public class Permission extends BaseEntity implements GrantedAuthority {
 
     private String permission;
 
-
     @Override
     public String getAuthority() {
         return permission;

@@ -10,7 +10,7 @@ public class HomeController {
 
     @GetMapping(value = "/")
     public String index(Model model) {
-        return "index";
+        return "main_layout";
     }
 
     @GetMapping(value = "/signin")
@@ -37,7 +37,7 @@ public class HomeController {
     }
 
     @GetMapping(value = "/forbidden")
-    public String forbidden(Model model){
+    public String forbidden(Model model) {
         return "forbidden";
     }
 }
