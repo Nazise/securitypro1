@@ -1,5 +1,6 @@
 package kz.bitlab.group1.security.securitypro1.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,17 +9,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @GetMapping(value = "/")
-    public String index(Model model){
+    public String index(Model model) {
         return "index";
     }
 
     @GetMapping(value = "/signin")
-    public String signin(Model model){
+    public String signin(Model model) {
         return "signin";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/profile")
-    public String profile(Model model){
+    public String profile(Model model) {
         return "profile";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping(value = "/admin-panel")
+    public String adminPanel(Model model) {
+        return "admin";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")
+    @GetMapping(value = "/moderator-panel")
+    public String moderatorPanel(Model model) {
+        return "moderator";
+    }
+
+    @GetMapping(value = "/forbidden")
+    public String forbidden(Model model){
+        return "forbidden";
     }
 }

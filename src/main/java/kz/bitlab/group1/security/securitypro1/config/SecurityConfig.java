@@ -21,17 +21,21 @@ public class SecurityConfig {
     private User1Service user1Service;
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    };
+    }
+
+    ;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         AuthenticationManagerBuilder builder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
         builder.userDetailsService(user1Service)
-                        .passwordEncoder(passwordEncoder());
+                .passwordEncoder(passwordEncoder());
+
+        http.exceptionHandling().accessDeniedPage("/forbidden");
 
         http.formLogin()
                 .loginPage("/signin")
