@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -18,6 +19,11 @@ public class HomeController {
     @GetMapping(value = "/")
     public String index(Model model) {
         return "main_layout";
+    }
+
+    @GetMapping(value = "/register")
+    public String register(Model model) {
+        return "register";
     }
 
     @GetMapping(value = "/signin")
@@ -48,7 +54,7 @@ public class HomeController {
         return "forbidden";
     }
 
-    @GetMapping(value = "/register")
+    @PostMapping(value = "/register")
     public String register(@RequestParam(name = "user_email") String email,
                            @RequestParam(name = "user_password") String password,
                            @RequestParam(name = "user_re_password") String rePassword,
