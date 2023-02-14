@@ -1,6 +1,6 @@
 package kz.bitlab.group1.security.securitypro1.config;
 
-import kz.bitlab.group1.security.securitypro1.service.User1Service;
+import kz.bitlab.group1.security.securitypro1.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,21 +18,19 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Autowired
-    private User1Service user1Service;
+    private AuthService authService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    ;
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         AuthenticationManagerBuilder builder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
-        builder.userDetailsService(user1Service)
+        builder.userDetailsService(authService)
                 .passwordEncoder(passwordEncoder());
 
         http.exceptionHandling().accessDeniedPage("/forbidden");

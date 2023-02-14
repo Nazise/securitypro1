@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Transactional
 @Repository
 public interface PermissionRepository extends JpaRepository<Permission, Long> {
+
+    Permission findByPermission(String permission);
 }

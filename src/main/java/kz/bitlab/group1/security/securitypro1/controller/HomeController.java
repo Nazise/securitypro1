@@ -1,12 +1,19 @@
 package kz.bitlab.group1.security.securitypro1.controller;
 
+import kz.bitlab.group1.security.securitypro1.service.AccountService;
+import kz.bitlab.group1.security.securitypro1.service.AuthService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
+
+    private final AccountService accountService;
 
     @GetMapping(value = "/")
     public String index(Model model) {
@@ -39,5 +46,16 @@ public class HomeController {
     @GetMapping(value = "/forbidden")
     public String forbidden(Model model) {
         return "forbidden";
+    }
+
+    @GetMapping(value = "/register")
+    public String register(@RequestParam(name = "user_email") String email,
+                           @RequestParam(name = "user_password") String password,
+                           @RequestParam(name = "user_re_password") String rePassword,
+                           @RequestParam(name = "user_full_name") String fullName) {
+        if (accountService.registerUser(email, password, rePassword, fullName) != null) {
+            return "redirect:/register?success";
+        }
+        return "redirect:/register?error";
     }
 }

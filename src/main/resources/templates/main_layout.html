@@ -24,20 +24,32 @@
                         <a class="nav-link active" th:href="@{'/'}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" th:href="@{'/signin'}" sec:authorize="isAnonymous()">Login</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/register'}" sec:authorize="isAnonymous()">Register</a>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            Dropdown
+                            <span th:text="${#authentication.principal.fullName}"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" th:href="@{'/profile'}">Profile</a></li>
+                            <li><a class="dropdown-item" th:href="@{'/settings'}">Setting</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" href="JavaScript:void(0)" onclick="logout()">Logout</a></li>
+                            <form th:action="@{'/exit'}" method="post" id="logoutForm">
+
+                            </form>
+                            <script type="text/javascript">
+                                function logout() {
+                                    alert("Выход")
+                                    document.getElementById("logoutForm").submit();
+                                }
+                            </script>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -58,7 +70,7 @@
         </div>
     </div>
 </div>
-<h1>THIS IS SECURITY</h1>
+<!--<h1>THIS IS SECURITY</h1>-->
 <div sec:authorize="isAnonymous()">
     <a th:href="@{'/signin'}">SING IN</a>
 </div>
